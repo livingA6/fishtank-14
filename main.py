@@ -16,8 +16,8 @@ for single_date in daterange(start_date, end_date):
     data = pandas.json_normalize(r.json())
     df = pandas.DataFrame(data)
     #print(df)
-    df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/Task1.csv', sep=';',header=False,mode='a')
-    #df.to_csv(path_or_buf='<path to csv-file>', sep=';', header=False,mode='a')
+    #df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/Task1.csv', sep=';',header=False,mode='a')
+    df.to_csv(path_or_buf='<path to csv-file>', sep=';', header=False,mode='a')
 
 
 
