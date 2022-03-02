@@ -20,4 +20,5 @@ for single_date in daterange(start_date, end_date):
         df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4.csv', sep=';',header=False,mode='a')
         #df.to_csv(path_or_buf='<path to csv-file>', sep=';', header=False,mode='a')
     except requests.exceptions.RequestException as e:
+        #print(e)
         raise SystemExit(e)
