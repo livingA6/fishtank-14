@@ -17,7 +17,7 @@ for single_date in daterange(start_date, end_date):
         data = pandas.json_normalize(r.json())
         df = pandas.DataFrame(data)
         print(df.values)
-        df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4.csv', sep=';',header=False,mode='a')
+        df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4_july_2020.csv', sep=';',header=False,mode='a')
         #df.to_csv(path_or_buf='<path to csv-file>', sep=';', header=False,mode='a')
     except requests.exceptions.RequestException as e:
         #print(e)
