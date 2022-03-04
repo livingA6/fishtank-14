@@ -2,7 +2,6 @@ import requests
 from datetime import timedelta, date
 import pandas as pd
 
-
 def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):
         yield start_date + timedelta(n)
@@ -19,11 +18,12 @@ for single_date in daterange(start_date, end_date):
         data = pd.json_normalize(r.json()[0]['timeTableRows'])
         #print(data.columns)
         df = pd.DataFrame(data).where(data['type'] == 'ARRIVAL')
+        file = pd.DataFrame(data)
         df['actualTime'] = pd.to_datetime(df['actualTime'])
         avg = df.groupby(['stationShortCode','type']).actualTime.mean()
         print(avg)
-        #df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4_july_2020.csv', sep=';',header=False,mode='a')
-        df.to_csv(path_or_buf= <path to csv-file>, sep=';', header=False,mode='a')
+        #file.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4_july_2020.csv', sep=';',header=False,mode='a')
+        file.to_csv(path_or_buf= <path to csv-file>, sep=';', header=False,mode='a')
     except requests.exceptions.RequestException as e:
         #print(e)
         raise SystemExit(e)
