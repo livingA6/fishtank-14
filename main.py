@@ -1,6 +1,6 @@
 import requests
 from datetime import timedelta, date
-import pandas
+import pandas as pd
 
 
 def daterange(start_date, end_date):
@@ -15,14 +15,14 @@ for single_date in daterange(start_date, end_date):
     headers = {'Digitraffic-User': 'livingA6'}
     try:
         r = requests.get(URL, headers=headers)
-        #data = pandas.json_normalize(r.json())
-        data = pandas.json_normalize(r.json()[0]['timeTableRows'])
-        df = pandas.DataFrame(data)
-        #print(df.columns)
-        #print(df['stationShortCode'])
-        print(df['actualTime'])
-        #df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4_july_2020.csv', sep=';',header=False,mode='a')
-        df.to_csv(path_or_buf='<path to csv-file>', sep=';', header=False,mode='a')
+        #data = pd.json_normalize(r.json())
+        data = pd.json_normalize(r.json()[0]['timeTableRows'])
+        df = pd.DataFrame(data).where(data['type'] == 'ARRIVAL')
+        df['actualTime'] = pd.to_datetime(df['actualTime'])
+        avg = df.groupby(['stationShortCode','type']).actualTime.mean()
+        print(avg)
+        df.to_csv(path_or_buf= '/Users/dstar/Projects/PycharmProjects/DigiTraffic/train_4_july_2020.csv', sep=';',header=False,mode='a')
+        #df.to_csv(path_or_buf='<path to csv-file>', sep=';', header=False,mode='a')
     except requests.exceptions.RequestException as e:
         #print(e)
         raise SystemExit(e)
